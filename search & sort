@@ -1,0 +1,80 @@
+package com.example.demo;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class Review {
+    public static void main(String[] args) {
+        int[] searchNums = new int[]{3, 4, 2, 8, 6, 7, 9};
+        int searchNum = 9;
+
+            int result = search(searchNums, searchNum);
+            System.out.println(result);
+
+
+    }
+
+    private static int search(int[] nums, int target) {
+        if (nums != null && nums.length != 0) {
+            for (int i = 0; i < nums.length; i++) {
+                if (nums[i] == target) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+
+    private static int binarySearch(int[] nums, int target) {
+        if (nums == null || nums.length == 0) {
+            return -1;
+        }
+        nums = bubbleSort(nums);
+        int low = 0, high = nums.length;
+        for (int mid = (high - low) / 2; low < high; mid = (high - low) / 2) {
+            if (nums[mid] == target) {
+                return mid;
+            } else if (nums[mid] > target) {
+                high = mid;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return -1;
+
+    }
+
+    private static int[] bubbleSort(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return new int[]{};
+        }
+        for (int i = nums.length; i > 1; i--) {
+            for (int j = 0; j < i - 1; j++) {
+                int k = j + 1;
+                if (nums[j] > nums[k]) {
+                    int o = nums[j];
+                    nums[j] = nums[k];
+                    nums[k] = o;
+                }
+            }
+        }
+        return nums;
+    }
+
+    private static int[] twoSum(int[] nums, int target) {
+        if (nums == null || nums.length == 0) {
+            return new int[]{};
+        }
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (map.containsKey(nums[i])) {
+                return new int[]{map.get(nums[i]), i};
+            } else {
+                map.put(target-nums[i], i);
+            }
+        }
+        return new int[]{};
+    }
+
+}
+
